@@ -16,9 +16,11 @@
     home: /local/home/rescue
     groups:
       - adm
-      - admin
+      - sudo
       - cdrom
-      - wheel
+      - dip
+      - plugdev
+      - lxd
 
 - name: Set authorized_keys of rescue user
   become: true

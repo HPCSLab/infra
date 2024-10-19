@@ -1,0 +1,6 @@
+[sshd]
+enabled  = true
+bantime  = 30m
+findtime = 10m
+maxretry = 5
+ignoreip = {{ firewall.allow_ip.tsukuba }} {{ firewall.allow_ip.omni }} {{ firewall.allow_ip.internal }}
