@@ -6,6 +6,7 @@
     - sshd
     - rescue
     - firewall
+    - static_hosts
 
 - name: Configure DNS
   hosts: node0.hpcs.cs.tsukuba.ac.jp
