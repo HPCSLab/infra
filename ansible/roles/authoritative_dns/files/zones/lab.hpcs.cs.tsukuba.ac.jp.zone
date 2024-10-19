@@ -17,8 +17,10 @@ dns             IN  A       172.16.0.5
 auth            IN  A       172.16.0.220
 fs              IN  A       172.16.0.223
 work            IN  A       172.16.0.11
-www             IN  A       172.16.0.2
-mail            IN  A       172.16.0.1
+serv2           IN  A       172.16.0.2
+www             IN  CNAME   serv2
+serv1           IN  A       172.16.0.1
+mail            IN  CNAME   serv1
 node0           IN  A       172.16.0.232
 node1           IN  A       172.16.0.230
 
