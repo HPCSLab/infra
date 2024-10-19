@@ -1,0 +1,10 @@
+---
+- name: Restart fail2ban
+  ansible.builtin.systemd_service:
+    name: fail2ban
+    state: restarted
+    daemon_reload: true
+
+- name: Reload ufw
+  community.general.ufw:
+    state: reloaded

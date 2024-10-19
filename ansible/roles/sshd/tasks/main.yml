@@ -1,0 +1,22 @@
+---
+- name: Install OpenSSH
+  ansible.builtin.apt:
+    name:
+      - ssh
+  notify: Restart OpenSSH
+
+- name: Configure sshd_config
+  ansible.builtin.copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart OpenSSH
+
+- name: Start OpenSSH
+  ansible.builtin.systemd_service:
+    name: ssh
+    enabled: true
+    daemon_reload: true
+    state: started
