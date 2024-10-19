@@ -1,0 +1,6 @@
+---
+- name: Create rescue user
+  hosts: node0.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - authoritative_dns
