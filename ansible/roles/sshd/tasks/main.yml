@@ -5,13 +5,11 @@
       - ssh
   notify: Restart OpenSSH
 
-- name: Configure sshd_config
-  ansible.builtin.copy:
-    src: sshd_config
-    dest: /etc/ssh/sshd_config
-    owner: root
-    group: root
-    mode: "0644"
+- name: Disable password authentication
+  ansible.builtin.lineinfile:
+    regexp: ^PasswordAuthentication .*
+    line: PasswordAuthentication no
+    path: /etc/ssh/sshd_config
   notify: Restart OpenSSH
 
 - name: Start OpenSSH
