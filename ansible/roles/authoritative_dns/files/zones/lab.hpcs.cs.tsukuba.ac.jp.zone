@@ -13,7 +13,7 @@ $TTL        300
 
 gw              IN  A       172.16.255.254
 kvm-serv        IN  A       172.16.0.200
-dns             IN  A       172.16.0.5
+dns             IN  A       172.16.0.232
 auth            IN  A       172.16.0.220
 fs              IN  A       172.16.0.223
 work            IN  A       172.16.0.11
