@@ -1,3 +1,6 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
 [Unit]
 Description=CoreDNS authoritative server
 After=network.target

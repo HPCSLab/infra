@@ -1,3 +1,6 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
 $TTL    300
 
 @           IN  SOA     hpcs.cs.tsukuba.ac.jp.  hpcs-admin.hpcs.cs.tsukuba.ac.jp. (
