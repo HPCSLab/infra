@@ -1,0 +1,29 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
+$TTL        300
+@           IN  SOA     lab.hpcs.cs.tsukuba.ac.jp.  hpcs-admin.hpcs.cs.tsukuba.ac.jp. (
+    20240130    ; Serial
+    10800       ; Refresh
+    3600        ; Retry
+    3600000     ; Expire
+    300 )       ; Negative Cache TTL
+
+                IN  NS      dns.hpcs.cs.tsukuba.ac.jp.
+
+gw              IN  A       172.16.255.254
+kvm-serv        IN  A       172.16.0.200
+dns             IN  A       172.16.0.5
+auth            IN  A       172.16.0.220
+fs              IN  A       172.16.0.223
+work            IN  A       172.16.0.11
+www             IN  A       172.16.0.2
+mail            IN  A       172.16.0.1
+node0           IN  A       172.16.0.232
+node1           IN  A       172.16.0.230
+
+gw-ipmi         IN  A       172.16.0.224
+kvm-serv-ipmi   IN  A       172.16.0.210
+mail-ipmi       IN  A       172.16.254.1
+node0-ipmi      IN  A       172.16.0.211
+node1-ipmi      IN  A       172.16.0.231

@@ -1,0 +1,21 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
+$TTL    300
+@       IN  SOA     hpcs.cs.tsukuba.ac.jp.  hpcs-admin.hpcs.cs.tsukuba.ac.jp (
+    20240130    ; Serial
+    10800       ; Refresh
+    3600        ; Retry
+    3600000     ; Expire
+    300 )       ; Negative Cache TTL
+
+        IN  NS      dns.hpcs.cs.tsukuba.ac.jp.
+        IN  MX      10  mail.hpcs.cs.tsukuba.ac.jp.
+
+lab     IN  NS      dns.hpcs.cs.tsukuba.ac.jp.
+
+gw      IN  A       130.158.78.241
+dns     IN  A       130.158.42.5
+work    IN  A       130.158.78.7
+www     IN  A       130.158.78.2
+mail    IN  A       130.158.78.1

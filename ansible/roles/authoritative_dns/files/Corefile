@@ -1,0 +1,30 @@
+(basic) {
+  log
+  errors
+  prometheus
+}
+
+hpcs.cs.tsukuba.ac.jp:53 {
+  import basic
+  file ./zones/hpcs.cs.tsukuba.ac.jp.zone
+}
+
+(internal) {
+  view internal {
+    expr incidr(client_ip(), '127.0.0.0/8') || incidr(client_ip(), '172.16.0.0/16')
+  }
+}
+
+16.172.in-addr.arpa:53 {
+  import internal
+  file ./zones/16.172.in-addr.arpa.zone
+  log
+  errors
+}
+
+lab.hpcs.cs.tsukuba.ac.jp:53 {
+  import internal
+  file ./zones/lab.hpcs.cs.tsukuba.ac.jp.zone
+  log
+  errors 
+}
