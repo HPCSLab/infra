@@ -1,0 +1,15 @@
+---
+- name: Create rescue user
+  hosts: all
+  become: true
+  roles:
+    - sshd
+    - rescue
+    - firewall
+    - static_hosts
+
+- name: Configure DNS
+  hosts: node0.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - authoritative_dns

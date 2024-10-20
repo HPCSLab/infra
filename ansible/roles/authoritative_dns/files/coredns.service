@@ -1,0 +1,21 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
+[Unit]
+Description=CoreDNS authoritative server
+After=network.target
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker run \
+    --mount type=bind,source=/etc/coredns,target=/etc/coredns,readonly \
+    -w /etc/coredns \
+    -p 53:53/udp \
+    -p 53:53/tcp \
+    coredns/coredns:latest \
+    -conf /etc/coredns/Corefile
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

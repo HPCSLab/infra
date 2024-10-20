@@ -1,0 +1,26 @@
+- name: Configure static hosts
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: ^[^ ]+ {{ item.hostname | replace('.', '\\.') }}
+    line: "{{ item.ip }} {{ item.hostname }}"
+  loop:
+    - { ip: "172.16.255.254", hostname: "gw.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.200", hostname: "kvm-serv.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.5", hostname: "dns.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.220", hostname: "auth.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.223", hostname: "fs.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.11", hostname: "work.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.2", hostname: "serv2.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.2", hostname: "www.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.1", hostname: "serv1.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.1", hostname: "mail.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.232", hostname: "node0.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.230", hostname: "node0.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.224", hostname: "gw-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
+    - {
+        ip: "172.16.0.210",
+        hostname: "kvm-serv-ipmi.lab.hpcs.cs.tsukuba.ac.jp",
+      }
+    - { ip: "172.16.254.1", hostname: "mail-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.211", hostname: "node0-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
+    - { ip: "172.16.0.231", hostname: "node1-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
