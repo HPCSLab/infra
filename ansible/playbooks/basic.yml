@@ -1,6 +1,6 @@
 ---
-- name: Create rescue user
-  hosts: all
+- name: Web
+  hosts: node1.hpcs.cs.tsukuba.ac.jp
   become: true
   roles:
-    - rescue
+    - web
