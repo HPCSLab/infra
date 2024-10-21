@@ -1,0 +1,6 @@
+- name: Restart docker compose
+  community.docker.docker_compose_v2:
+    project_src: /etc/traefik/containers
+    build: always
+    state: restarted
+    remove_orphans: true

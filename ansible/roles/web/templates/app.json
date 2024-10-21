@@ -1,0 +1,7 @@
+{
+  "hostname": "www.hpcs.cs.tsukuba.ac.jp",
+  "port": 80,
+  "host": "0.0.0.0",
+  "baseUrl": "/netteam/cfps",
+  "title": "CFPs @Architecture-team, HPCS Lab."
+}

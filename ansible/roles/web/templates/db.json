@@ -1,0 +1,6 @@
+{
+  "host": "cfp-summary-db",
+  "user": "root",
+  "password": "{{ cfp_summary_db.pass }}",
+  "database": "cfp-summary"
+}

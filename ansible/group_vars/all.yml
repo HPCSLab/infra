@@ -1,0 +1,9 @@
+users:
+  cfp_summary:
+    uid: 2000
+  traefik:
+    uid: 2001
+
+ports:
+  cfp_summary_db: 10000
+  cfp_summary: 10001

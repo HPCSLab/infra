@@ -1,0 +1,99 @@
+services:
+  traefik:
+    image: traefik:v3.2
+    command: --configFile=/etc/traefik/traefik.yaml
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /etc/traefik
+        target: /etc/traefik
+      - type: bind
+        source: /var/lib/traefik/certs
+        target: /certs
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443/tcp"
+      - "443:443/udp"
+  fallback:
+    build: ./fallback
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /mnt/home
+        target: /home
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.fallback-https.entrypoints=https
+      - traefik.http.routers.fallback-https.rule=Host(`www.hpcs.cs.tsukuba.ac.jp`)
+      - traefik.http.routers.fallback-https.priority=1
+      - traefik.http.routers.fallback-https.tls.certresolver=main
+
+      - traefik.http.routers.fallback-http.entrypoints=http
+      - traefik.http.routers.fallback-http.rule=Host(`www.hpcs.cs.tsukuba.ac.jp`)
+      - traefik.http.routers.fallback-http.priority=1
+      - traefik.http.routers.fallback-http.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+#  cfp-summary-db:
+#    image: mysql:5.7
+#    volumes:
+#      - type: bind
+#        source: /var/lib/cfp-summary-db
+#        target: /var/lib/mysql
+#    environment:
+#      - MYSQL_ROOT_HOST=%
+#      - MYSQL_DATABASE=cfp-summary
+#      - MYSQL_PASSWORD={{ cfp_summary_db.pass }}
+#      - MYSQL_USER=cfp-summary
+#      - MYSQL_ROOT_PASSWORD={{ cfp_summary_db.pass }}
+#  cfp-summary:
+#    image: ghcr.io/hpcslab/cfp-summary:v1.0.7
+#    volumes:
+#      - type: bind
+#        source: /etc/cfp-summary
+#        target: /work/config
+#    restart: unless-stopped
+#    labels:
+#      - traefik.enable=true
+#      - traefik.http.routers.cfp-summary.entrypoints=https
+#      - traefik.http.routers.cfp-summary.middlewares=cfp-summary-redirect,cfp-summary-path
+#      - traefik.http.routers.cfp-summary.priority=100
+#      - traefik.http.routers.cfp-summary.tls.certresolver=main
+#      - traefik.http.routers.cfp-summary.rule=PathPrefix(`/internal/netteam/cfps`)&&Host(`www.hpcs.cs.tsukuba.ac.jp`)
+#      - traefik.http.middlewares.cfp-summary-redirect.redirectregex.regex=^https://www.hpcs.cs.tsukuba.ac.jp/internal/netteam/cfps$
+#      - traefik.http.middlewares.cfp-summary-redirect.redirectregex.replacement=https://www.hpcs.cs.tsukuba.ac.jp/internal/netteam/cfps/
+#      - traefik.http.middlewares.cfp-summary-redirect.redirectregex.permanent=true
+#      - traefik.http.middlewares.cfp-summary-path.stripprefix.prefixes=/internal/netteam/cfps
+  hpcs-web:
+    image: ghcr.io/hpcslab/web:{{ web.hash }}
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.web.entrypoints=https
+      - traefik.http.routers.web.priority=100
+      - traefik.http.routers.web.tls.certresolver=main
+      - >
+        traefik.http.routers.web.rule=Host(`www.hpcs.cs.tsukuba.ac.jp`) && (
+        Path(`/`)
+        || Path(`/index.html`)
+        || Path(`/global.css`)
+        || Path(`/destyle.css`)
+        || Path(`/favicon.svg`)
+        || PathPrefix(`/_astro/`)
+        || PathPrefix(`/access/`)
+        || Path(`/access`)
+        || PathPrefix(`/bachelor/`)
+        || Path(`/bachelor`)
+        || PathPrefix(`/members/`)
+        || Path(`/members`)
+        || PathPrefix(`/news/`)
+        || Path(`/news`)
+        || PathPrefix(`/publications/`)
+        || Path(`/publications`)
+        || PathPrefix(`/teams/`)
+        || Path(`/teams`)
+        )
