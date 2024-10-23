@@ -16,7 +16,7 @@ lab     IN  NS      dns.hpcs.cs.tsukuba.ac.jp.
 
 gw      IN  A       130.158.78.241
 dns     IN  A       130.158.42.5
-work    IN  A       130.158.78.7
+work    IN  A       130.158.42.7
 www     IN  CNAME   serv2
 serv2   IN  A       130.158.42.2
 mail    IN  CNAME   serv1
