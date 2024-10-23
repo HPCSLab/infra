@@ -1,9 +1,0 @@
----
-- name: Web
-  hosts: node1.hpcs.cs.tsukuba.ac.jp
-  become: true
-  roles:
-    - sshd
-    - rescue
-    - firewall
-    - web
