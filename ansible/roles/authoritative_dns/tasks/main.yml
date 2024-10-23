@@ -1,0 +1,69 @@
+---
+- name: Copy coredns.service
+  ansible.builtin.copy:
+    src: coredns.service
+    dest: /etc/systemd/system/coredns.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart coredns.service
+
+- name: Create /etc/coredns
+  ansible.builtin.file:
+    path: /etc/coredns
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy Corefile
+  ansible.builtin.copy:
+    src: Corefile
+    dest: /etc/coredns/Corefile
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart coredns.service
+
+- name: Create zones file
+  ansible.builtin.file:
+    path: /etc/coredns/zones
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy zone files
+  ansible.builtin.copy:
+    src: zones/{{ item }}
+    dest: /etc/coredns/zones
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - 16.172.in-addr.arpa.zone
+    - hpcs.cs.tsukuba.ac.jp.zone
+    - lab.hpcs.cs.tsukuba.ac.jp.zone
+  notify: Restart coredns.service
+
+- name: Stop systemd-resolved
+  ansible.builtin.systemd_service:
+    name: systemd-resolved
+    enabled: false
+    daemon_reload: true
+    state: stopped
+
+- name: Use public DNS
+  ansible.builtin.copy:
+    src: resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable coredns.service
+  ansible.builtin.systemd_service:
+    name: coredns
+    daemon_reload: true
+    enabled: true
+    state: started

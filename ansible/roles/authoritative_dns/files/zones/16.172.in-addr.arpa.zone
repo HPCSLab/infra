@@ -1,0 +1,31 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
+$TTL    300
+
+@           IN  SOA     hpcs.cs.tsukuba.ac.jp.  hpcs-admin.hpcs.cs.tsukuba.ac.jp. (
+    20240130    ; Serial
+    10800       ; Refresh
+    3600        ; Retry
+    3600000     ; Expire
+    300 )       ; Negative Cache TTL
+
+; nameservers
+            IN  NS      ns.omni.hpcc.jp.
+
+254.255     IN  PTR     gw.lab.hpcs.cs.tsukuba.ac.jp.
+200.0       IN  PTR     kvm-serv.lab.hpcs.cs.tsukuba.ac.jp.
+5.0         IN  PTR     dns.lab.hpcs.cs.tsukuba.ac.jp.
+220.0       IN  PTR     auth.lab.hpcs.cs.tsukuba.ac.jp.
+223.0       IN  PTR     fs.lab.hpcs.cs.tsukuba.ac.jp
+11.0        IN  PTR     work.lab.hpcs.cs.tsukuba.ac.jp.
+2.0         IN  PTR     serv2.lab.hpcs.cs.tsukuba.ac.jp.
+1.0         IN  PTR     serv1.lab.hpcs.cs.tsukuba.ac.jp.
+232.0       IN  PTR     node0.lab.hpcs.cs.tsukuba.ac.jp.
+230.0       IN  PTR     node1.lab.hpcs.cs.tsukuba.ac.jp.
+
+224.0       IN  PTR     gw-ipmi.lab.hpcs.cs.tsukuba.ac.jp.
+210.0       IN  PTR     kvm-serv-ipmi.lab.hpcs.cs.tsukuba.ac.jp.
+254.1       IN  PTR     serv1-ipmi.lab.hpcs.cs.tsukuba.ac.jp.
+211.0       IN  PTR     node0-ipmi.lab.hpcs.cs.tsukuba.ac.jp.
+231.0       IN  PTR     node1-ipmi.lab.hpcs.cs.tsukuba.ac.jp.

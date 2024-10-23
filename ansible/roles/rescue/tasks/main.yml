@@ -14,11 +14,22 @@
     name: rescue
     create_home: true
     home: /local/home/rescue
+    password: "{{ rescue.pass }}"
     groups:
       - adm
-      - admin
+      - sudo
       - cdrom
-      - wheel
+      - dip
+      - plugdev
+      - lxd
+
+- name: Allow nopassword sudo for rescue
+  community.general.sudoers:
+    name: 99-rescue
+    user: rescue
+    commands: ALL
+    state: present
+    nopassword: true
 
 - name: Set authorized_keys of rescue user
   become: true
