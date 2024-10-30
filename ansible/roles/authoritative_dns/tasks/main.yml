@@ -1,6 +1,6 @@
 ---
 - name: Copy coredns.service
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: coredns.service
     dest: /etc/systemd/system/coredns.service
     owner: root
