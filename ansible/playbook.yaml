@@ -9,12 +9,12 @@
     - static_hosts
 
 - name: Configure DNS
-  hosts: node0.hpcs.cs.tsukuba.ac.jp
+  hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
   become: true
   roles:
     - authoritative_dns
 - name: Web
-  hosts: node1.hpcs.cs.tsukuba.ac.jp
+  hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
   become: true
   roles:
     - web
