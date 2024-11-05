@@ -1,0 +1,5 @@
+[Match]
+MACAddress={{ net.internal.mac }}
+
+[Link]
+Name=internal

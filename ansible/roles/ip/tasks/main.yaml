@@ -1,0 +1,53 @@
+---
+- name: Uninstall netplan
+  ansible.builtin.apt:
+    name:
+      - netplan.io
+      - netplan-generator
+    state: absent
+
+- name: Remove netplan-generated-file
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ net.netplan_generated_confs }}"
+  notify:
+    - Restart systemd-networkd
+    - Restart systemd-resolved
+
+- name: Copy network configuration files
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "/etc/systemd/network/{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - 10-internal.link
+    - 10-internal.network
+  notify:
+    - Restart systemd-networkd
+    - Restart systemd-resolved
+
+- name: Link systemd-resolved
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    src: /run/systemd/resolve/stub-resolv.conf
+    owner: root
+    group: root
+    state: link
+    force: true
+
+- name: Enable systemd-networkd
+  ansible.builtin.systemd_service:
+    name: systemd-networkd
+    state: started
+    enabled: true
+    daemon_reload: true
+
+- name: Enable systemd-resolved
+  ansible.builtin.systemd_service:
+    name: systemd-resolved
+    state: started
+    enabled: true
+    daemon_reload: true
