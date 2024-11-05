@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenLDAP backup service
+After=network.target
+
+[Service]
+Type=oneshot
+Environment=BACKUP_HOME=/mnt/home/backups/ldap
+ExecStart=/usr/local/bin/slapd-backup.sh
+
+[Install]
+WantedBy=multi-user.target

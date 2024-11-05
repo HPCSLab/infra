@@ -1,0 +1,27 @@
+---
+- name: Create /mnt/home
+  ansible.builtin.file:
+    path: /mnt/home
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install nfs-common
+  ansible.builtin.apt:
+    name: [nfs-common]
+
+- name: Mount nfs home at /mnt/home
+  ansible.posix.mount:
+    src: fs.lab.hpcs.cs.tsukuba.ac.jp:/home
+    opts: >-
+      {{
+        (ansible_service_mgr == 'systemd')
+        | ternary(
+            'x-systemd.automount,x-systemd.requires=network-online.target',
+            omit
+          )
+      }}
+    path: /mnt/home
+    fstype: nfs
+    state: mounted

@@ -62,3 +62,45 @@
     proto: tcp
     src: 172.16.0.0/16
   notify: Reload ufw
+
+- name: Create /mnt/home/backups/ldap
+  ansible.builtin.file:
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+    path: /mnt/home/backups/ldap
+
+- name: Copy slapd-backup.sh
+  ansible.builtin.copy:
+    src: slapd-backup.sh
+    dest: /usr/local/bin/slapd-backup.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy slapd-backup.service
+  ansible.builtin.copy:
+    src: slapd-backup.service
+    dest: /etc/systemd/system/slapd-backup.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload slapd-backup
+
+- name: Copy slapd-backup.timer
+  ansible.builtin.copy:
+    src: slapd-backup.timer
+    dest: /etc/systemd/system/slapd-backup.timer
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload slapd-backup
+
+- name: Enable slapd-backup.timer
+  ansible.builtin.systemd_service:
+    name: slapd-backup.timer
+    state: started
+    enabled: true
+    daemon_reload: true
+  notify: Reload slapd-backup
