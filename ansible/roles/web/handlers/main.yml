@@ -4,3 +4,7 @@
     build: always
     state: restarted
     remove_orphans: true
+
+- name: Reload ufw
+  community.general.ufw:
+    state: reloaded

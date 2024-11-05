@@ -19,3 +19,35 @@
     enabled: true
     daemon_reload: true
     state: started
+
+- name: Allow DNS
+  community.general.ufw:
+    rule: allow
+    port: 53
+    proto: tcp
+    src: 172.16.0.0/16
+  notify: Reload ufw
+
+- name: Allow UDP DNS
+  community.general.ufw:
+    rule: allow
+    port: 53
+    proto: udp
+    src: 172.16.0.0/16
+  notify: Reload ufw
+
+- name: Allow TCP DNS
+  community.general.ufw:
+    rule: allow
+    port: 53
+    proto: udp
+    src: 172.16.0.0/16
+  notify: Reload ufw
+
+- name: Allow TLS DNS
+  community.general.ufw:
+    rule: allow
+    port: 853
+    proto: udp
+    src: 172.16.0.0/16
+  notify: Reload ufw
