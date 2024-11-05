@@ -1,0 +1,20 @@
+dn: olcDatabase={0}config,cn=config
+changetype: modify
+replace: olcRootPW
+olcRootPW: {SSHA}GPEY6kzJIGD610kS5jFaUBU2cMOCi3yO
+
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcRootPW
+olcRootPW: {SSHA}GPEY6kzJIGD610kS5jFaUBU2cMOCi3yO
+
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcSuffix
+olcSuffix: dc=hpcs,dc=cs,dc=tsukuba,dc=ac,dc=jp
+
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcRootDN
+olcRootDN: cn=Manager,dc=hpcs,dc=cs,dc=tsukuba,dc=ac,dc=jp
+

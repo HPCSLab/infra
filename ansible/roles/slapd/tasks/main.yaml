@@ -1,0 +1,48 @@
+---
+- name: Install OpenLDAP
+  ansible.builtin.apt:
+    name:
+      - slapd
+      - ldap-utils
+
+- name: Copy ldap.conf
+  ansible.builtin.copy:
+    src: ldap.conf
+    dest: /etc/ldap/ldap.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy check_password.conf
+  ansible.builtin.copy:
+    src: check_password.conf
+    dest: /etc/ldap/check_password.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Create /etc/ldap/changes
+  ansible.builtin.file:
+    path: /etc/ldap/changes
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy slap initialization scripts
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/ldap/changes/{{ item }}
+    owner: root
+    group: root
+    mode: "0600"
+  loop:
+    - root_account.ldif
+    - samba.ldif
+
+- name: Start slapd service
+  ansible.builtin.systemd_service:
+    name: slapd
+    state: started
+    enabled: true
+    daemon_reload: true
