@@ -38,36 +38,6 @@ services:
       - traefik.http.routers.fallback-http.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
-#  cfp-summary-db:
-#    image: mysql:5.7
-#    volumes:
-#      - type: bind
-#        source: /var/lib/cfp-summary-db
-#        target: /var/lib/mysql
-#    environment:
-#      - MYSQL_ROOT_HOST=%
-#      - MYSQL_DATABASE=cfp-summary
-#      - MYSQL_PASSWORD={{ cfp_summary_db.pass }}
-#      - MYSQL_USER=cfp-summary
-#      - MYSQL_ROOT_PASSWORD={{ cfp_summary_db.pass }}
-#  cfp-summary:
-#    image: ghcr.io/hpcslab/cfp-summary:v1.0.7
-#    volumes:
-#      - type: bind
-#        source: /etc/cfp-summary
-#        target: /work/config
-#    restart: unless-stopped
-#    labels:
-#      - traefik.enable=true
-#      - traefik.http.routers.cfp-summary.entrypoints=https
-#      - traefik.http.routers.cfp-summary.middlewares=cfp-summary-redirect,cfp-summary-path
-#      - traefik.http.routers.cfp-summary.priority=100
-#      - traefik.http.routers.cfp-summary.tls.certresolver=main
-#      - traefik.http.routers.cfp-summary.rule=PathPrefix(`/internal/netteam/cfps`)&&Host(`www.hpcs.cs.tsukuba.ac.jp`)
-#      - traefik.http.middlewares.cfp-summary-redirect.redirectregex.regex=^https://www.hpcs.cs.tsukuba.ac.jp/internal/netteam/cfps$
-#      - traefik.http.middlewares.cfp-summary-redirect.redirectregex.replacement=https://www.hpcs.cs.tsukuba.ac.jp/internal/netteam/cfps/
-#      - traefik.http.middlewares.cfp-summary-redirect.redirectregex.permanent=true
-#      - traefik.http.middlewares.cfp-summary-path.stripprefix.prefixes=/internal/netteam/cfps
   hpcs-web:
     image: ghcr.io/hpcslab/web:{{ web.hash }}
     restart: unless-stopped
