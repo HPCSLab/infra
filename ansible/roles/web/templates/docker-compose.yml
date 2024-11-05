@@ -38,6 +38,21 @@ services:
       - traefik.http.routers.fallback-http.middlewares=redirect-to-https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    restart: unless-stopped
+    entrypoint: 
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS={{ ldap.internal_ip }}
+      - PHPLDAPADMIN_SERVER_ADMIN=hpcs-admin@hpcs.cs.tsukuba.ac.jp
+      - PHPLDAPADMIN_HTTPS=false
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.phpldapadmin.entrypoints=http
+      - traefik.http.routers.phpldapadmin.rule=Host(`phpldapadmin.lab.hpcs.cs.tsukuba.ac.jp`)
+      - traefik.http.routers.phpldapadmin.priority=1
+      - traefik.http.routers.phpldapadmin.middlewares=internal_only@docker
+      - traefik.http.middlewares.internal_only.ipwhitelist.sourcerange=127.0.0.1/32, 172.16.0.0/16
   hpcs-web:
     image: ghcr.io/hpcslab/web:{{ web.hash }}
     restart: unless-stopped
