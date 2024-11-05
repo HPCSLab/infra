@@ -14,6 +14,12 @@
     - firewall
     - static_hosts
 
+- name: Configure LDAP
+  hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - slapd
+
 - name: Configure Authoritative DNS
   hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
   become: true

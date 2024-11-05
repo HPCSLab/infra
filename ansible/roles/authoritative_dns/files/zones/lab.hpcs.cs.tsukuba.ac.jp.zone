@@ -24,6 +24,7 @@ serv1           IN  A       172.16.0.1
 mail            IN  CNAME   serv1
 node0           IN  A       172.16.0.232
 node1           IN  A       172.16.0.230
+phpldapadmin    IN  A       172.16.0.230
 
 gw-ipmi         IN  A       172.16.0.224
 kvm-serv-ipmi   IN  A       172.16.0.210

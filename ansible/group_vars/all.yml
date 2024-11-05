@@ -3,6 +3,9 @@ users:
     uid: 2000
   traefik:
     uid: 2001
+  openldap:
+    uid: 106
+    gid: 105
 
 ports:
   cfp_summary_db: 10000
@@ -13,3 +16,6 @@ authoritative_dns:
 
 resolver_dns:
   internal_ip: 172.16.0.220
+
+ldap:
+  internal_ip: 172.16.0.232
