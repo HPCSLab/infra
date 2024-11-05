@@ -1,0 +1,5 @@
+- name: Restart kresd
+  ansible.builtin.systemd_service:
+    name: kresd@internal
+    daemon_reload: true
+    state: restarted

@@ -1,0 +1,21 @@
+---
+- name: Install knot-resolver
+  ansible.builtin.apt:
+    name:
+      - knot-resolver
+
+- name: Copy kresd.conf
+  ansible.builtin.template:
+    src: kresd.conf
+    dest: /etc/knot-resolver/kresd.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart kresd
+
+- name: Enable kresd
+  ansible.builtin.systemd_service:
+    name: kresd@internal
+    enabled: true
+    daemon_reload: true
+    state: started
