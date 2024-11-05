@@ -1,7 +1,7 @@
 net:
   internal:
     subnet_size: 16
-    ip: 172.16.0.232
-    mac: 0c:c4:7a:85:53:88
+    ip: 172.16.0.230
+    mac: 0c:c4:7a:7c:2c:3a
   netplan_generated_confs:
     - 10-netplan-eno1.network

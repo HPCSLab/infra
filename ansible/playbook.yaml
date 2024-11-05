@@ -3,8 +3,14 @@
   hosts: all
   become: true
   roles:
-    - sshd
     - rescue
+
+- name: Configure network
+  hosts: all
+  become: true
+  roles:
+    - ip
+    - sshd
     - firewall
     - static_hosts
 

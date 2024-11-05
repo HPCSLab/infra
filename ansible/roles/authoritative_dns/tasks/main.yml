@@ -46,21 +46,6 @@
     - lab.hpcs.cs.tsukuba.ac.jp.zone
   notify: Restart coredns.service
 
-- name: Stop systemd-resolved
-  ansible.builtin.systemd_service:
-    name: systemd-resolved
-    enabled: false
-    daemon_reload: true
-    state: stopped
-
-- name: Use public DNS
-  ansible.builtin.copy:
-    src: resolv.conf
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: "0644"
-
 - name: Enable coredns.service
   ansible.builtin.systemd_service:
     name: coredns
