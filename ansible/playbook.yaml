@@ -18,6 +18,7 @@
   hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
   become: true
   roles:
+    - mount_nfs_home
     - slapd
 
 - name: Configure Authoritative DNS
@@ -36,4 +37,5 @@
   hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
   become: true
   roles:
+    - mount_nfs_home
     - web
