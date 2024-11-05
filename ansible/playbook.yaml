@@ -14,11 +14,18 @@
     - firewall
     - static_hosts
 
-- name: Configure DNS
+- name: Configure Authoritative DNS
   hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
   become: true
   roles:
     - authoritative_dns
+
+- name: Configure Resolver DNS
+  hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - resolver_dns
+
 - name: Web
   hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
   become: true
