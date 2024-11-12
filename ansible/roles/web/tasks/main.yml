@@ -68,49 +68,6 @@
     group: root
     mode: "0755"
 
-- name: Copy route to cfp-summary-server
-  ansible.builtin.copy:
-    src: cfp-summary-server.yaml
-    dest: /etc/traefik/dynamic/cfp-summary-server.yaml
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Restart docker compose
-
-- name: Create /etc/cfp_summary
-  ansible.builtin.file:
-    path: /etc/cfp-summary
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-  notify: Restart docker compose
-
-- name: Copy app.json
-  ansible.builtin.template:
-    src: app.json
-    dest: /etc/cfp-summary/app.json
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Restart docker compose
-
-- name: Copy db.json
-  ansible.builtin.template:
-    src: db.json
-    dest: /etc/cfp-summary
-    owner: root
-    group: root
-    mode: "0640"
-
-- name: Create /var/lib/cfp-summary-db
-  ansible.builtin.file:
-    path: /var/lib/cfp-summary-db
-    state: directory
-    owner: root
-    group: root
-    mode: "0700"
-
 - name: Copy docker-compose.yml
   ansible.builtin.template:
     src: docker-compose.yml
