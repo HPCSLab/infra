@@ -17,10 +17,7 @@
     - { ip: "172.16.0.232", hostname: "node0.lab.hpcs.cs.tsukuba.ac.jp" }
     - { ip: "172.16.0.230", hostname: "node0.lab.hpcs.cs.tsukuba.ac.jp" }
     - { ip: "172.16.0.224", hostname: "gw-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
-    - {
-        ip: "172.16.0.210",
-        hostname: "kvm-serv-ipmi.lab.hpcs.cs.tsukuba.ac.jp",
-      }
+    - { ip: "172.16.0.210", hostname: "kvm-serv-ipmi.lab.hpcs.cs.tsukuba.ac.jp"}
     - { ip: "172.16.254.1", hostname: "mail-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
     - { ip: "172.16.0.211", hostname: "node0-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
     - { ip: "172.16.0.231", hostname: "node1-ipmi.lab.hpcs.cs.tsukuba.ac.jp" }
