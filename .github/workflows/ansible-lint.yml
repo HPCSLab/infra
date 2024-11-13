@@ -4,12 +4,27 @@ on:
     branches: ["main"]
   push:
   workflow_dispatch:
+defaults:
+  run:
+    working-directory: ansible
 jobs:
   build:
     name: Ansible Lint # Naming the build is important to use it as a status check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Setup venv
+        run: |
+          uv venv
+          source .venv/bin/activate
+          echo "$VIRTUAL_ENV" >> "$GITHUB_PATH"
+
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main
         with:
