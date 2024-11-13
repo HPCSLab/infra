@@ -5,7 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "ansible>=10.5.0",
-    "ansible-lint>=6.8.7",
+    "ansible>=10.6.0",
+    "ansible-lint>=24.9.2",
     "yamllint>=1.35.1",
+]
+
+[tool.uv]
+environments = [
+    "platform_system != 'Windows'",
 ]
