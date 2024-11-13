@@ -21,7 +21,7 @@ jobs:
 
       - name: Setup venv
         run: |
-          uv venv
+          uv sync
           source .venv/bin/activate
           echo "$VIRTUAL_ENV/bin" >> "$GITHUB_PATH"
 
