@@ -39,6 +39,11 @@
     - namachan10777
     - onokatio
 
+- name: Create getty
+  ansible.builtin.file:
+    path: /etc/systemd/system/getty@tty1.service.d/
+    state: directory
+
 - name: Enable auto login physical console
   ansible.builtin.copy:
     src: autologin.conf
