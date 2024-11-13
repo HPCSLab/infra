@@ -26,9 +26,4 @@ jobs:
           echo "$VIRTUAL_ENV/bin" >> "$GITHUB_PATH"
 
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@main
-        with:
-          args: ""
-          setup_python: "false"
-          working_directory: "ansible"
-          requirements_file: ""
+        run: ansible-lint 
