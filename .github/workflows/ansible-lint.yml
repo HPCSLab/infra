@@ -19,7 +19,8 @@ jobs:
         with:
           enable-cache: true
 
+      - name: Install ansible-lint
+        run: uv sync
+
       - name: Run ansible-lint
-        run: |
-          uv sync
-          uv run ansible-lint 
+        run: uv run ansible-lint 
