@@ -1,0 +1,26 @@
+name: ansible-lint
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+  workflow_dispatch:
+defaults:
+  run:
+    working-directory: ansible
+jobs:
+  build:
+    name: Ansible Lint # Naming the build is important to use it as a status check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Install ansible-lint
+        run: uv sync
+
+      - name: Run ansible-lint
+        run: uv run ansible-lint 
