@@ -19,11 +19,7 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Setup venv
+      - name: Run ansible-lint
         run: |
           uv sync
-          source .venv/bin/activate
-          echo "$VIRTUAL_ENV/bin" >> "$GITHUB_PATH"
-
-      - name: Run ansible-lint
-        run: ansible-lint 
+          uv run ansible-lint 
