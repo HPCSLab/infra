@@ -14,7 +14,6 @@
     name: rescue
     create_home: true
     home: /local/home/rescue
-    password: "{{ rescue.pass }}"
     groups:
       - adm
       - sudo
@@ -39,3 +38,11 @@
   loop:
     - namachan10777
     - onokatio
+
+- name: Enable auto login physical console
+  ansible.builtin.copy:
+    src: autologin.conf
+    dest: /etc/systemd/system/getty@tty1.service.d/autologin.conf
+    owner: root
+    group: root
+    mode: "0755"
