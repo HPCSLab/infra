@@ -40,6 +40,7 @@
     - onokatio # tmaruyama
     - maetin0324 # rmaeda
     - motorailgun # kourakata
+    - k5342 # ksugihara
 
 - name: Create getty
   ansible.builtin.file:
