@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE template SYSTEM "template.dtd">
+
+<template>
+<askcontainer>1</askcontainer>
+<description>New HPCS Account</description>
+<icon>ldap-user.png</icon>
+<invalid>0</invalid>
+<rdn>cn</rdn>
+<title>HPCS Account</title>
+<visible>1</visible>
+
+<objectClasses>
+<objectClass id="inetOrgPerson"></objectClass>
+<objectClass id="sambaSAMAccount"></objectClass>
+<objectClass id="posixAccount"></objectClass>
+<objectClass id="shadowAccount"></objectClass>
+</objectClasses>
+
+<attributes>
+<attribute id="givenName">
+        <display>First name</display>
+        <icon>ldap-uid.png</icon>
+        <order>1</order>
+        <page>1</page>
+</attribute>
+<attribute id="sn">
+        <display>Last name</display>
+        <onchange>=autoFill(cn;%givenName% %sn%)</onchange>
+        <onchange>=autoFill(uid;%sn/l%)</onchange>
+        <order>2</order>
+        <page>1</page>
+</attribute>
+<attribute id="cn">
+        <display>Common Name</display>
+        <order>3</order>
+        <page>1</page>
+</attribute>
+<attribute id="mail">
+        <display>Email</display>
+        <icon>mail.png</icon>
+        <order>4</order>
+        <page>1</page>
+</attribute>
+<attribute id="gidNumber">
+        <display>GID Number</display>
+        <order>5</order>
+        <page>1</page>
+        <!--<value><![CDATA[=php.PickList(/;(&(objectClass=posixGroup));gidNumber;%cn%;;;;cn)]]></value>-->
+        <value>1000</value>
+        <readonly>1</readonly>
+</attribute>
+<attribute id="uid">
+        <display>User ID</display>
+        <onchange>=autoFill(homeDirectory;/home/%uid%)</onchange>
+        <order>6</order>
+        <page>1</page>
+</attribute>
+<attribute id="uidNumber">
+        <display>UID Number</display>
+        <order>7</order>
+        <page>1</page>
+        <!--<readonly>1</readonly>-->
+        <value>=php.GetNextNumber(/;uidNumber)</value>
+</attribute>
+<attribute id="sambaSID">
+        <display>Samba SID</display>
+        <helper>
+                <id>sidsuffix</id>
+                <value>=php.GetNextNumber(/;uidNumber;false)</value>
+        </helper>
+        <order>8</order>
+        <page>1</page>
+        <post>=php.Join(-;%sambaSID%,%sidsuffix%)</post>
+        <value><![CDATA[=php.PickList(/;(&(objectClass=sambaDomain));sambaSID;%sambaSID% (%sambaDomainName%);;;;sambaDomainName)]]></value>
+</attribute>
+<attribute id="userPassword">
+        <display>Password</display>
+        <helper>
+                <display>Encryption</display>
+                <id>enc</id>
+                <value>=php.PasswordEncryptionTypes()</value>
+                <default>md5</default>
+        </helper>
+        <icon>lock.png</icon>
+        <onchange>=autoFill(sambaLMPassword;%userPassword%)</onchange>
+        <onchange>=autoFill(sambaNTPassword;%userPassword%)</onchange>
+        <order>9</order>
+        <post>=php.PasswordEncrypt(%enc%;%userPassword%)</post>
+        <page>1</page>
+        <verify>1</verify>
+</attribute>
+<attribute id="loginShell">
+        <display>Login shell</display>
+        <order>10</order>
+        <page>1</page>
+        <type>select</type>
+        <value id="/bin/sh">/bin/sh</value>
+        <value id="/bin/bash">/bin/bash</value>
+        <value id="/bin/csh">/bin/csh</value>
+        <value id="/bin/tsh">/bin/tsh</value>
+        <value id="/bin/tcsh">/bin/tsh</value>
+        <value id="/bin/zsh">/bin/zsh</value>
+        <value id="/bin/nologin">/bin/nologin</value>
+        <default>/bin/bash</default>
+</attribute>
+<attribute id="homeDirectory">
+        <display>Home directory</display>
+        <order>11</order>
+        <page>1</page>
+</attribute>
+<attribute id="sambaAcctFlags">
+        <order>12</order>
+        <value>[U]</value>
+        <hidden>0</hidden>
+</attribute>
+<attribute id="sambaLMPassword">
+        <display>LM Password</display>
+        <order>13</order>
+        <page>1</page>
+        <post>=php.PasswordEncrypt(LM;%sambaLMPassword%)</post>
+        <type>password</type>
+        <readonly>1</readonly>
+</attribute>
+<attribute id="sambaNTPassword">
+        <display>NT Password</display>
+        <order>14</order>
+        <page>1</page>
+        <post>=php.PasswordEncrypt(NT;%sambaNTPassword%)</post>
+        <type>password</type>
+        <readonly>1</readonly>
+</attribute>
+<attribute id="sambaPwdLastSet">
+        <order>15</order>
+        <page>1</page>
+        <value><![CDATA[=php.Function(time;)]]></value>
+        <hidden>0</hidden>
+        <readonly>1</readonly>
+</attribute>
+</attributes>
+
+</template>

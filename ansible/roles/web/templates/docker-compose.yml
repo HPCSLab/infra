@@ -46,6 +46,10 @@ services:
       - PHPLDAPADMIN_LDAP_HOSTS={{ ldap.internal_ip }}
       - PHPLDAPADMIN_SERVER_ADMIN=hpcs-admin@hpcs.cs.tsukuba.ac.jp
       - PHPLDAPADMIN_HTTPS=false
+    volumes:
+      - type: bind
+        source: /usr/share/phpldapadmin/templates
+        target: /var/www/phpldapadmin/templates
     labels:
       - traefik.enable=true
       - traefik.http.routers.phpldapadmin.entrypoints=http

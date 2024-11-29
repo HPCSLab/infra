@@ -68,6 +68,23 @@
     group: root
     mode: "0755"
 
+- name: Create /usr/share/phpldapadmin
+  ansible.builtin.file:
+    path: /usr/share/phpldapadmin
+    state: directory
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy phpldapadmin templates
+  ansible.builtin.copy:
+    src: phpldapadmin/templates/
+    dest: /usr/share/phpldapadmin/templates/
+    owner: root
+    group: root
+    mode: "0755"
+  notify: Restart docker compose
+
 - name: Copy docker-compose.yml
   ansible.builtin.template:
     src: docker-compose.yml
