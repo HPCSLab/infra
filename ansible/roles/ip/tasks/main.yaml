@@ -29,6 +29,16 @@
     - Restart systemd-networkd
     - Restart systemd-resolved
 
+- name: Copy systemd-resolved configuration file
+  ansible.builtin.copy:
+    src: resolved.conf
+    dest: /etc/systemd/resolved.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart systemd-resolved
+
 - name: Link systemd-resolved
   ansible.builtin.file:
     path: /etc/resolv.conf
