@@ -1,6 +1,6 @@
 all:
   hosts:
     node0.lab.hpcs.cs.tsukuba.ac.jp:
-      ansible_user: ubuntu
+      ansible_user: rescue
     node1.lab.hpcs.cs.tsukuba.ac.jp:
-      ansible_user: ubuntu
+      ansible_user: rescue
