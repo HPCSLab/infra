@@ -21,3 +21,4 @@ www     IN  CNAME   serv2
 serv2   IN  A       130.158.42.2
 mail    IN  CNAME   serv1
 serv1   IN  A       130.158.42.1
+auth    IN  A       130.158.42.3
