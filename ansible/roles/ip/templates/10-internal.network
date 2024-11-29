@@ -3,10 +3,9 @@ MACAddress={{ net.internal.mac }}
 
 [Network]
 Address={{ net.internal.ip }}/{{ net.internal.subnet_size }}
-DNS=1.1.1.1
+DNS=172.16.0.232
+Domains=~.hpcs.cs.tsukuba.ac.jp
 
 [Route]
 Destination=0.0.0.0/0
 Gateway=172.16.255.254
-DNS=172.16.0.232
-Domains=~.hpcs.cs.tsukuba.ac.jp
