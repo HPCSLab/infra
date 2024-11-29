@@ -36,8 +36,10 @@
     user: rescue
     key: https://github.com/{{ item }}.keys
   loop:
-    - namachan10777
-    - onokatio
+    - namachan10777 # mnakano
+    - onokatio # tmaruyama
+    - maetin0324 # rmaeda
+    - motorailgun # kourakata
 
 - name: Create getty
   ansible.builtin.file:
