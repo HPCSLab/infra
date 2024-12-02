@@ -1,6 +1,6 @@
 ---
 - name: Disable password authentication
-  ansible.builtin.file:
+  ansible.builtin.copy:
     content: "PasswordAuthentication no"
     dest: /etc/ssh/sshd_config.d/disable-password-auth
   notify: Reload OpenSSH
