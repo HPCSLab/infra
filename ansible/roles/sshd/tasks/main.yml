@@ -3,4 +3,7 @@
   ansible.builtin.copy:
     content: "PasswordAuthentication no"
     dest: /etc/ssh/sshd_config.d/disable-password-auth
+    owner: root
+    group: root
+    mode: "0644"
   notify: Reload OpenSSH
