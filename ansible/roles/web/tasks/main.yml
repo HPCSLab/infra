@@ -1,43 +1,18 @@
 ---
-- name: Create /var/lib/traefik
+
+- name: Setup Web directories
   ansible.builtin.file:
-    path: /var/lib/traefik
+    path: "{{ item }}"
     state: directory
     owner: root
     group: root
     mode: "0755"
-
-- name: Create /var/lib/traefik/certs
-  ansible.builtin.file:
-    path: /var/lib/traefik/certs
-    state: directory
-    owner: root
-    group: root
-    mode: "0700"
-
-- name: Create /etc/traefik
-  ansible.builtin.file:
-    path: /etc/traefik/
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: Create /etc/traefik/containers
-  ansible.builtin.file:
-    path: /etc/traefik/containers
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: Create /etc/traefik/containers/fallback
-  ansible.builtin.file:
-    path: /etc/traefik/containers/fallback
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
+  loop:
+    - /var/lib/traefik
+    - /var/lib/traefik/certs
+    - /etc/traefik/
+    - /etc/traefik/containers
+    - /etc/traefik/containers/fallback
 
 - name: Copy traefik.yaml
   ansible.builtin.template:
@@ -59,14 +34,6 @@
     - Dockerfile
     - userdir2.conf
   notify: Restart docker compose
-
-- name: Create /etc/traefik/dynamic
-  ansible.builtin.file:
-    path: /etc/traefik/dynamic
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
 
 - name: Copy docker-compose.yml
   ansible.builtin.template:
