@@ -1,20 +1,9 @@
 ---
-- name: Install OpenSSH
-  ansible.builtin.apt:
-    name:
-      - ssh
-  notify: Restart OpenSSH
-
 - name: Disable password authentication
-  ansible.builtin.lineinfile:
-    regexp: ^PasswordAuthentication .*
-    line: PasswordAuthentication no
-    path: /etc/ssh/sshd_config
-  notify: Restart OpenSSH
-
-- name: Start OpenSSH
-  ansible.builtin.systemd_service:
-    name: ssh
-    enabled: true
-    daemon_reload: true
-    state: started
+  ansible.builtin.copy:
+    content: "PasswordAuthentication no"
+    dest: /etc/ssh/sshd_config.d/disable-password-auth
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload OpenSSH

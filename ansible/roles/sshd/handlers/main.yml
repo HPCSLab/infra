@@ -1,6 +1,5 @@
 ---
-- name: Restart OpenSSH
+- name: Reload OpenSSH
   ansible.builtin.systemd_service:
     name: ssh
-    daemon_reload: true
-    state: restarted
+    state: reloaded
