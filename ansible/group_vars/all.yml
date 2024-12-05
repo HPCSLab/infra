@@ -12,4 +12,4 @@ resolver_dns:
   internal_ip: 172.16.0.220
 
 ldap:
-  internal_ip: 172.16.0.232
+  internal_ip: 172.16.0.220
