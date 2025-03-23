@@ -40,7 +40,7 @@ services:
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
       - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
   phpldapadmin:
-    image: osixia/phpldapadmin:latest
+    build: ./phpldapadmin
     restart: unless-stopped
     entrypoint: 
     environment:

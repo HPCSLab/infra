@@ -13,6 +13,8 @@
     - /etc/traefik/
     - /etc/traefik/containers
     - /etc/traefik/containers/fallback
+    - /etc/traefik/containers/phpldapadmin
+    - /etc/traefik/containers/phpldapadmin/creation
 
 - name: Copy traefik.yaml
   ansible.builtin.template:
@@ -61,6 +63,21 @@
     owner: grafana
     group: grafana
     mode: "0600"
+
+- name: Copy phpldapadmin files
+  ansible.builtin.copy:
+    src: phpldapadmin/{{ item }}
+    dest: /etc/traefik/containers/phpldapadmin/{{ item }}
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - Dockerfile
+    - startup.sh
+    - creation/hpcsAccount.xml
+    - creation/hpcsFellowAccount.xml
+    - creation/hpcsGuestAccount.xml
+  notify: Restart docker compose
 
 - name: Copy docker-compose.yml
   ansible.builtin.template:
