@@ -34,3 +34,9 @@ fs.lab.hpcs.cs.tsukuba.ac.jp:/home /home nfs rw,rsize=8192,wsize=8192,hard,intr,
 ```sh
 mount -a
 ```
+
+## 移行先
+
+`node0`のdockerサーバで動かす予定。[hpcslab/bastion](https://github.com/hpcslab/bastion)にコードが存在。
+ホストの認証系を汚染しないためにdockerを使っているが、`macvlan`だとホストのIPへの疎通が出来ず`host`だと同じポートでlisten出来ない。
+簡単にするために`10022`ポートでlistenしてgwでNAPTすることにする。
