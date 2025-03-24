@@ -1,0 +1,14 @@
+[Unit]
+Description=Bastion server
+After=network.target
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker run \
+  --network=host \
+  --mount 'type=volume,source=nfs-volume,target=/home,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/home,"volume-opt=o=addr=fs.lab.hpcs.cs.tsukuba.ac.jp,rw,nfsvers=4"'  \
+  ghcr.io/hpcslab/bastion:{{ bastion_version }}
+
+[Install]
+WantedBy=multi-user.target

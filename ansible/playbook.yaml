@@ -33,6 +33,12 @@
   roles:
     - resolver_dns
 
+- name: Setup bastion service
+  hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - bastion
+
 - name: Web
   hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
   become: true
