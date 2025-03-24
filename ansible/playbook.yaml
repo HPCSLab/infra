@@ -5,6 +5,12 @@
   roles:
     - rescue
 
+- name: Setup node-expoter
+  hosts: all
+  become: true
+  roles:
+    - node_exporter
+
 - name: Configure network
   hosts: all
   become: true
