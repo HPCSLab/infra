@@ -1,0 +1,17 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
+[Unit]
+Description=node-exporter service
+After=network.target
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker run \
+  -p 9100:9100 \
+  prom/node-exporter:v{{ node_exporter.version }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
