@@ -1,0 +1,13 @@
+- name: Restart certbot
+  ansible.builtin.systemd_service:
+    name: certbot-renew
+    daemon_reload: true
+    enabled: true
+    state: restarted
+
+- name: Restart radius
+  ansible.builtin.systemd_service:
+    name: radius
+    daemon_reload: true
+    enabled: true
+    state: restarted
