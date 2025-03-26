@@ -7,9 +7,11 @@ users:
 
 authoritative_dns:
   internal_ip: 172.16.0.232
+  metrics_port: 9153
 
 resolver_dns:
   internal_ip: 172.16.0.220
+  metrics_port: 8453
 
 ldap:
   internal_ip: 172.16.0.220

@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     name:
       - knot-resolver
+      - knot-resolver-module-http
 
 - name: Copy kresd.conf
   ansible.builtin.template:
@@ -48,6 +49,14 @@
   community.general.ufw:
     rule: allow
     port: 853
+    proto: udp
+    src: 172.16.0.0/16
+  notify: Reload ufw
+
+- name: Allow DNS metrics
+  community.general.ufw:
+    rule: allow
+    port: 8453
     proto: udp
     src: 172.16.0.0/16
   notify: Reload ufw
