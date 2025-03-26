@@ -13,21 +13,21 @@ $TTL        300
 
 gw              IN  A       172.16.255.254
 kvm-serv        IN  A       172.16.0.200
-dns             IN  A       172.16.0.232
-resolver        IN  A       172.16.0.230
+dns             IN  CNAME   node0
+resolver        IN  CNAME   node1
 auth            IN  A       172.16.0.220
 fs              IN  A       172.16.0.223
 work            IN  A       172.16.0.11
 serv2           IN  A       172.16.0.2
-www             IN  CNAME   172.16.0.230
+www             IN  CNAME   node1
 serv1           IN  A       172.16.0.1
 mail            IN  CNAME   serv1
 node0           IN  A       172.16.0.232
 node1           IN  A       172.16.0.230
-grafana         IN  A       172.16.0.230
-prometheus      IN  A       172.16.0.230
-postgres        IN  A       172.16.0.230
-phpldapadmin    IN  A       172.16.0.230
+grafana         IN  CNAME   node1
+prometheus      IN  CNAME   node1
+postgres        IN  CNAME   node1
+phpldapadmin    IN  CNAME   node1
 
 gw-ipmi         IN  A       172.16.0.224
 kvm-serv-ipmi   IN  A       172.16.0.210

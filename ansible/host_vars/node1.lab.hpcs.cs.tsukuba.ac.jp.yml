@@ -1,3 +1,4 @@
+hostname: node1
 net:
   internal:
     subnet_size: 16
