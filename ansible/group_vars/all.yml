@@ -13,3 +13,16 @@ resolver_dns:
 
 ldap:
   internal_ip: 172.16.0.220
+
+node_exporter:
+  version: "1.9.0"
+
+prometheus:
+  version: 3.2.1
+  targets:
+    - ip: 172.16.0.232
+      label: node0
+    - ip: 172.16.0.230
+      label: node1
+  uid: 4001
+  gid: 4001
