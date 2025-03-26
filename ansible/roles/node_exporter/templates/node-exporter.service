@@ -8,9 +8,7 @@ Requires=docker.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/docker run \
-  --network=host \
-  prom/node-exporter:v{{ node_exporter.version }}
+ExecStart=/usr/local/bin/node_exporter
 Restart=always
 
 [Install]
