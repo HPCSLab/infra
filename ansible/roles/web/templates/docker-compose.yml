@@ -53,6 +53,23 @@ services:
       - traefik.http.routers.phpldapadmin.priority=1
       - traefik.http.routers.phpldapadmin.middlewares=internal_only@docker
       - traefik.http.middlewares.internal_only.ipwhitelist.sourcerange=127.0.0.1/32, 172.16.0.0/16
+  grafana:
+    image: grafana/grafana-oss:latest
+    restart: unless-stopped
+    user: "{{ grafana.uid }}:{{ grafana.gid }}"
+    volumes:
+      - type: bind
+        source: /etc/grafana/grafana.ini
+        target: /etc/grafana/grafana.ini
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.entrypoints=http
+      - traefik.http.routers.grafana.rule=Host(`grafana.lab.hpcs.cs.tsukuba.ac.jp`)
+      - traefik.http.routers.grafana.priority=1
+      - traefik.http.routers.grafana.middlewares=grafana-acl@docker
+      - traefik.http.middlewares.grafana-acl.ipwhitelist.sourcerange=127.0.0.1/32,172.16.0.0/16
+      - traefik.http.routers.my-router.service=grafana
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
   hpcs-web:
     image: ghcr.io/hpcslab/web:{{ web.hash }}
     restart: unless-stopped

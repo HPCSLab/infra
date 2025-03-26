@@ -45,6 +45,12 @@
   roles:
     - bastion
 
+- name: Install general-purpose postgres
+  hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - postgres
+
 - name: Configure prometheus
   hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
   become: true

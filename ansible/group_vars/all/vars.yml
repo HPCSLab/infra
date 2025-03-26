@@ -26,3 +26,10 @@ prometheus:
       label: node1
   uid: 4001
   gid: 4001
+
+traefik:
+  metrics_port: 9091
+
+grafana:
+  uid: 472
+  gid: 472

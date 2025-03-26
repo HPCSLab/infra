@@ -19,11 +19,14 @@ auth            IN  A       172.16.0.220
 fs              IN  A       172.16.0.223
 work            IN  A       172.16.0.11
 serv2           IN  A       172.16.0.2
-www             IN  CNAME   serv2
+www             IN  CNAME   172.16.0.230
 serv1           IN  A       172.16.0.1
 mail            IN  CNAME   serv1
 node0           IN  A       172.16.0.232
 node1           IN  A       172.16.0.230
+grafana         IN  A       172.16.0.230
+prometheus      IN  A       172.16.0.230
+postgres        IN  A       172.16.0.230
 phpldapadmin    IN  A       172.16.0.230
 
 gw-ipmi         IN  A       172.16.0.224

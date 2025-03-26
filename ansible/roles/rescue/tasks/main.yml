@@ -14,6 +14,7 @@
     name: rescue
     create_home: true
     home: /local/home/rescue
+    password: $6$JUo53jYQpaLPEAhP$fLqq2wfM4ldUg3v5OPtjTwabtTi.ICAxP4mOelXxvYawLNw9nbWF6SDhdQjmejKuMqTQ2vxKhoBFhmLNsfdP..
     groups:
       - adm
       - sudo

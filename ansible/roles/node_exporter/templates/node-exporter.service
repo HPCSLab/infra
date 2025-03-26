@@ -9,7 +9,7 @@ Requires=docker.service
 [Service]
 Type=simple
 ExecStart=/usr/bin/docker run \
-  -p 9100:9100 \
+  --network=host \
   prom/node-exporter:v{{ node_exporter.version }}
 Restart=always
 

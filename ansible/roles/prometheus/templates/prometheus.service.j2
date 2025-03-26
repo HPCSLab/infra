@@ -9,7 +9,7 @@ Requires=docker.service
 [Service]
 Type=simple
 ExecStart=/usr/bin/docker run \
-  -p 9090:9090 \
+  --network=host \
   --user '{{ prometheus.uid }}:{{ prometheus.gid }}' \
   --mount type=bind,source=/etc/prometheus,target=/etc/prometheus \
   --mount type=bind,source=/var/prometheus,target=/var/prometheus \
