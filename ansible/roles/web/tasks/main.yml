@@ -97,3 +97,11 @@
     port: 443
     proto: tcp
   notify: Reload ufw
+
+- name: Allow metrics
+  community.general.ufw:
+    rule: allow
+    port: 9091
+    proto: tcp
+    src: 172.16.0.0/16
+  notify: Reload ufw

@@ -16,7 +16,7 @@ entryPoints:
   http:
     address: ":80"
   metrics:
-    address: "{{ net.internal.ip }}:{{ traefik.metrics_port }}"
+    address: ":{{ traefik.metrics_port }}"
 metrics:
   prometheus:
     entryPoint: metrics
