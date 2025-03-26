@@ -39,9 +39,16 @@
   roles:
     - bastion
 
+- name: Configure prometheus
+  hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - prometheus
+
 - name: Web
   hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
   become: true
   roles:
     - mount_nfs_home
     - web
+

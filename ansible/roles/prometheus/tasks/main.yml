@@ -1,0 +1,52 @@
+---
+- name: Copy prometheus.service
+  ansible.builtin.template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart prometheus.service
+
+- name: Create prometheus config dir
+  ansible.builtin.file:
+    path: /etc/prometheus
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy prometheus config file
+  ansible.builtin.template:
+    src: prometheus.yaml.j2
+    dest: /etc/prometheus/prometheus.yaml
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart prometheus.service
+
+- name: Add prometheus group
+  ansible.builtin.group:
+    name: prometheus
+    gid: "{{ prometheus.gid }}"
+
+- name: Add prometheus user
+  ansible.builtin.user:
+    name: prometheus
+    uid: "{{ prometheus.uid }}"
+    group: prometheus
+
+- name: Create prometheus TSDB dir
+  ansible.builtin.file:
+    path: /var/prometheus
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: "0755"
+
+- name: Enable prometheus.service
+  ansible.builtin.systemd_service:
+    name: prometheus
+    enabled: true
+    daemon_reload: true
+    state: started
