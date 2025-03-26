@@ -1,4 +1,29 @@
 ---
+- name: Download node-exporter
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter.version }}/node_exporter-{{ node_exporter.version }}.linux-amd64.tar.gz
+    dest: /tmp/node_exporter.tar.gz
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Unarchive node-exporter
+  ansible.builtin.unarchive:
+    src: /tmp/node_exporter.tar.gz
+    dest: /tmp
+    owner: root
+    remote_src: true
+
+- name: Copy node_exporter
+  ansible.builtin.copy:
+    src: /tmp/node_exporter-{{ node_exporter.version }}.linux-amd64/node_exporter
+    dest: /usr/local/bin/node_exporter
+    owner: root
+    group: root
+    mode: "0755"
+    remote_src: true
+  notify: Restart node-exporter.service
+
 - name: Copy node-exporter.service
   ansible.builtin.template:
     src: node-exporter.service
