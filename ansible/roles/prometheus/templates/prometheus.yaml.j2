@@ -5,7 +5,11 @@ scrape_configs:
     static_configs:
 {% for target in prometheus.targets %}
       - targets: 
-        - {{ target.ip }}
+        - "{{ target.ip }}:9100"
         labels:
           instance: {{ target.label }}
 {% endfor %}
+      - targets:
+        - "www.lab.hpcs.cs.tsukuba.ac.jp:{{ traefik.metrics_port }}"
+        labels:
+          instance: traefik

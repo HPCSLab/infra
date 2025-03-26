@@ -5,3 +5,7 @@
     daemon_reload: true
     state: restarted
 
+- name: Reload ufw
+  community.general.ufw:
+    state: reloaded
+

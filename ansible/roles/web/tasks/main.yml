@@ -35,6 +35,33 @@
     - userdir2.conf
   notify: Restart docker compose
 
+- name: Add grafana group
+  ansible.builtin.group:
+    name: grafana
+    gid: "{{ grafana.gid }}"
+
+- name: Add prometheus user
+  ansible.builtin.user:
+    name: grafana
+    uid: "{{ grafana.uid }}"
+    group: prometheus
+
+- name: Create /etc/grafana
+  ansible.builtin.file:
+    path: /etc/grafana
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy grafana filels
+  ansible.builtin.template:
+    src: grafana.ini
+    dest: /etc/grafana/grafana.ini
+    owner: grafana
+    group: grafana
+    mode: "0600"
+
 - name: Copy docker-compose.yml
   ansible.builtin.template:
     src: docker-compose.yml

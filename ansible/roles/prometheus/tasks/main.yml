@@ -50,3 +50,10 @@
     enabled: true
     daemon_reload: true
     state: started
+
+- name: Allow prometheus access
+  community.general.ufw:
+    rule: allow
+    port: 9090
+    proto: tcp
+  notify: Reload ufw

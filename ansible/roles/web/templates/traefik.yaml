@@ -13,12 +13,14 @@ api:
 entryPoints:
   https:
     address: ":443"
-    http:
-      tls: true
   http:
     address: ":80"
-    http:
-      tls: false
+  metrics:
+    address: "{{ net.internal.ip }}:{{ traefik.metrics_port }}"
+metrics:
+  prometheus:
+    entryPoint: metrics
+    addRoutersLabels: true
 certificatesResolvers:
   main:
     acme:
