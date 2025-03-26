@@ -13,3 +13,11 @@ scrape_configs:
         - "www.lab.hpcs.cs.tsukuba.ac.jp:{{ traefik.metrics_port }}"
         labels:
           instance: traefik
+      - targets:
+        - "dns.lab.hpcs.cs.tsukuba.ac.jp:{{ authoritative_dns.metrics_port }}"
+        labels:
+          instance: authoritative_dns
+      - targets:
+        - "resolver.lab.hpcs.cs.tsukuba.ac.jp:{{ resolver_dns.metrics_port }}"
+        labels:
+          instance: resolver_dns

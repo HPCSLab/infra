@@ -4,7 +4,7 @@
 (basic) {
   log
   errors
-  prometheus
+  prometheus 0.0.0.0:9153
 }
 
 hpcs.cs.tsukuba.ac.jp:53 {
