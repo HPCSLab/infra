@@ -19,6 +19,9 @@ ldap:
 node_exporter:
   version: "1.9.0"
 
+gw:
+  wan_ip: 130.158.78.241
+
 prometheus:
   version: 3.2.1
   targets:

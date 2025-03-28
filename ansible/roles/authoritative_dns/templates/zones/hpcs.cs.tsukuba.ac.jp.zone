@@ -19,6 +19,7 @@ dns     IN  A       130.158.42.5
 work    IN  A       130.158.42.7
 www     IN  A       130.158.42.2
 serv2   IN  A       130.158.42.2
-mail    IN  CNAME   serv1
+mail    IN  A       130.158.42.1
 serv1   IN  A       130.158.42.1
+mail    IN  TXT     "v=spf1 ip4:{{ gw.wan_ip }} -all"
 auth    IN  A       130.158.42.3
