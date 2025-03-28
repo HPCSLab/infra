@@ -1,4 +1,4 @@
-[auth](./auth.md)に存在。
+[auth](../node/kvm-serv/auth.md)に存在。
 
 ## 構造
 

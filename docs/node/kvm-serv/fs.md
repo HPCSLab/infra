@@ -1,6 +1,6 @@
 # ファイルサーバ
 
-[`kvm-serv`](./kvm-serv.md)に存在。
+[`kvm-serv`](./README.md)に存在。
 
 ## RAID6ディスクのマウント
 
