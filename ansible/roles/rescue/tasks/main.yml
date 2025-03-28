@@ -41,6 +41,7 @@
     - maetin0324 # rmaeda
     - motorailgun # kourakata
     - k5342 # ksugihara
+    - kotatsumuri # Shota Kawakami
 
 - name: Create getty
   ansible.builtin.file:
