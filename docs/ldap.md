@@ -1,5 +1,8 @@
 [auth](./auth.md)に存在。
 
+https://phpldapadmin.lab.hpcs.cs.tsukuba.ac.jp からアクセスする。
+BaseDNは `cn=Manager,dc=hpcs,dc=cs,dc=tsukuba,dc=ac,dc=jp`で、パスワードは基幹系パスワード（他のadminから教えてもらってください）
+
 ## 構造
 
 - dc=hpcs,dc=cs,dc=tsukuba,dc=ac,dc=jp (ルート)
