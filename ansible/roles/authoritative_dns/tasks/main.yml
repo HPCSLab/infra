@@ -34,7 +34,7 @@
     mode: "0755"
 
 - name: Copy zone files
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: zones/{{ item }}
     dest: /etc/coredns/zones
     owner: root
