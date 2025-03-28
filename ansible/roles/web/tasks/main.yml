@@ -11,6 +11,7 @@
     - /var/lib/traefik
     - /var/lib/traefik/certs
     - /etc/traefik/
+    - /etc/traefik/dynamic
     - /etc/traefik/containers
     - /etc/traefik/containers/fallback
     - /etc/traefik/containers/phpldapadmin
@@ -24,6 +25,16 @@
     group: root
     mode: "0644"
   notify: Restart docker compose
+
+- name: Copy dynamic configuration
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /etc/traefik/dynamic/{{ item }}
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - dashboard.yaml
 
 - name: Copy fallback files
   ansible.builtin.copy:
@@ -87,6 +98,14 @@
     owner: root
     mode: "0600"
   notify: Restart docker compose
+
+- name: Create /var/lib/kanidm
+  ansible.builtin.file:
+    path: /var/lib/kanidm
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
 
 - name: Install python3-docker
   ansible.builtin.apt:

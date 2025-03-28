@@ -1,0 +1,16 @@
+http:
+  routers:
+    api:
+      entryPoints:
+        - http
+      rule: "Host(`traefik.lab.hpcs.cs.tsukuba.ac.jp`)"
+      service: api@internal
+      middlewares:
+        - api-internal
+  middlewares:
+    api-internal:
+      ipWhiteList:
+        sourceRange:
+          - 127.0.0.1/32
+          - 172.16.0.0/16
+

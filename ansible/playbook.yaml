@@ -57,6 +57,13 @@
   roles:
     - prometheus
 
+- name: Setup idm service
+  hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
+  become: true
+  roles:
+    - certbot
+    - kanidm
+
 - name: Web
   hosts: node1.lab.hpcs.cs.tsukuba.ac.jp
   become: true
