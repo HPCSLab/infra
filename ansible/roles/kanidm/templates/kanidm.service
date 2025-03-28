@@ -1,0 +1,18 @@
+; DO NOT EDIT ON SERVER
+; THIS FILE IS MANAGED BY ANSIBLE
+
+[Unit]
+Description=Identity management service
+After=network.target
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker run \
+    --mount type=bind,source=/var/lib/kanidm,target=/data \
+    -p 8443:8443 \
+    kanidm/server:1.5.0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

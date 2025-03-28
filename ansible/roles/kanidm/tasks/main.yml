@@ -1,0 +1,85 @@
+---
+- name: Create idm group
+  ansible.builtin.group:
+    name: idm
+    gid: "{{ users.idm.gid }}"
+
+- name: Create idm user
+  ansible.builtin.user:
+    name: idm
+    uid: "{{ users.idm.uid }}"
+
+- name: Create kanidm directory
+  ansible.builtin.file:
+    path: /var/lib/kanidm
+    state: directory
+    owner: idm
+    group: idm
+    mode: "0700"
+
+- name: Copy kanidm.toml
+  ansible.builtin.copy:
+    src: server.toml
+    dest: /var/lib/kanidm/server.toml
+    owner: idm
+    group: idm
+    mode: "0600"
+  notify: Restart kanidm.service
+
+- name: Install kanidm tools
+  ansible.builtin.get_url:
+    url: https://kanidm.github.io/kanidm_ppa/kanidm_ppa.asc
+    dest: /etc/apt/trusted.gpg.d/kanidm_ppa.asc
+    mode: '0644'
+
+- name: Add kanidm repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64,arm64 signed-by=/etc/apt/trusted.gpg.d/kanidm_ppa.asc] https://kanidm.github.io/kanidm_ppa noble stable
+    state: present
+
+- name: Install kanidm tools
+  ansible.builtin.apt:
+    name:
+      - kanidm
+      - kanidm-unixd
+      - libnss-kanidm
+      - libpam-kanidm
+
+- name: Configure kanidm client
+  ansible.builtin.copy:
+    src: config
+    dest: /etc/kanidm/config
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy kanidm.service
+  ansible.builtin.template:
+    src: kanidm.service
+    dest: /etc/systemd/system/kanidm.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart kanidm.service
+
+- name: Enable kanidm.service
+  ansible.builtin.systemd_service:
+    name: kanidm
+    daemon_reload: true
+    enabled: true
+    state: started
+
+- name: Copy restart-kanidm.sh
+  ansible.builtin.copy:
+    src: restart-kanidm.sh
+    dest: /etc/letsencrypt/renewal-hooks/deploy/restart-kanidm.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Allow 8443 port
+  community.general.ufw:
+    rule: allow
+    port: 8443
+    proto: tcp
+  notify: Reload ufw

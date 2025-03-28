@@ -4,12 +4,12 @@ serversTransport:
   insecureSkipVerify: false
 log:
   format: common
-  level: INFO
+  level: DEBUG
 accessLog:
   format: common
 api:
   dashboard: true
-  insecure: false
+  insecure: true
 entryPoints:
   https:
     address: ":443"

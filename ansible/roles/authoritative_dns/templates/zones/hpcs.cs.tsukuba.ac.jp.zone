@@ -23,3 +23,4 @@ mail    IN  A       130.158.42.1
 serv1   IN  A       130.158.42.1
 mail    IN  TXT     "v=spf1 ip4:{{ gw.wan_ip }} -all"
 auth    IN  A       130.158.42.3
+idm     IN  A       130.158.42.3

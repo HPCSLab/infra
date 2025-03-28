@@ -4,6 +4,9 @@ users:
   openldap:
     uid: 106
     gid: 105
+  idm:
+    uid: 4004
+    gid: 4004
 
 authoritative_dns:
   internal_ip: 172.16.0.232
