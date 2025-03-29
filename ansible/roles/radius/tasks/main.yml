@@ -1,0 +1,72 @@
+---
+- name: Install certbot
+  community.general.snap:
+    name: certbot
+    classic: true
+  notify: Restart certbot
+
+- name: Create /etc/letsencrypt dirs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+  loop:
+    - /etc/letsencrypt
+    - /etc/letsencrypt/renewal
+    - /etc/letsencrypt/renewal-hooks
+    - /etc/letsencrypt/renewal-hooks/deploy
+
+- name: Copy auth.hpcs.cs.tsukuba.ac.jp.conf
+  ansible.builtin.copy:
+    src: auth.hpcs.cs.tsukuba.ac.jp.conf
+    dest: /etc/letsencrypt/renewal/auth.hpcs.cs.tsukuba.ac.jp.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart certbot
+
+- name: Copy radius.sh
+  ansible.builtin.copy:
+    src: radius.sh
+    dest: /etc/letsencrypt/renewal-hooks/deploy/radius.sh
+    owner: root
+    group: root
+    mode: "0755"
+  notify: Restart certbot
+
+- name: Install radius
+  ansible.builtin.apt:
+    name: freeradius
+  notify: Restart radius
+
+- name: Copy radius config
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/freeradius/3.0/{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - mods-available/eap
+    - mods-available/ldap
+    - mods-available/mschap
+    - sites-available/default
+    - sites-available/inner-tunnel
+    - users
+  notify: Restart radius
+
+- name: Enable certbot
+  ansible.builtin.systemd_service:
+    name: snap.certbot.renew
+    daemon_reload: true
+    enabled: true
+    state: started
+
+- name: Enable radius
+  ansible.builtin.systemd_service:
+    name: radius
+    daemon_reload: true
+    enabled: true
+    state: started

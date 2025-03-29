@@ -26,6 +26,7 @@
   roles:
     - mount_nfs_home
     - slapd
+    - radius
 
 - name: Configure Authoritative DNS
   hosts: node0.lab.hpcs.cs.tsukuba.ac.jp
